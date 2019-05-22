@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url
 from login import views
+from article import  main as article_main
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -24,5 +25,7 @@ urlpatterns = [
     url(r'^register/', views.register),
     url(r'^logout/', views.logout),
     # url(r'^about/',views.about),
-    url(r'^u/(?P<username>)(.*)/',views.userPage,name='userPage'),
+    url(r'^u/(?P<username>.*)/$',views.userPage,name='userPage'),
+    url(r'^article/(?P<username>.*)/(?P<postID>\d+)/$',article_main.postPage,name='postPage'),
+    url(r'^article/edit/',article_main.article_create,name='articleCreat')
 ]

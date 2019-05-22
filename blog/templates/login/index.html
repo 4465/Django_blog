@@ -1,61 +1,82 @@
 {#login/templates/login/index.html#}
 
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block title %}主页{% endblock %}
 {% block content %}
-   <div style="padding: 50px 100px 10px;">
-    {{ result }}<br>
+
+    <div style="padding: 50px 10px 10px;">
+{#{% for p in post %}#}
+{#    <div class="row">#}
+{#      <div class="col-sm-6 col-md-4">#}
+{#        <div class="thumbnail">#}
+{#          <img src="/static/img/bz1.jpg" alt="...">#}
+{#          <div class="caption">#}
+{#            <h3>{{ p.title }}</h3>#}
+{#            <p>{{ p.body }}</p>#}
+{#            <p>#}
+{#                <a href="/article/{{ request.session.username }}/{{ p.id }}/  " class="btn btn-primary" role="button">阅读全文</a>#}
+{#            </p>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{#    </div>#}
+{#{% endfor %}#}
     <div class="row">
-      <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-          <img src="/static/img/bz1.jpg" alt="...">
-          <div class="caption">
-            <h3>Thumbnail label</h3>
-            <p>...</p>
-            <p>
-                <a href="#" class="btn btn-primary" role="button">阅读全文</a>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-          <img src="/static/img/bz1.jpg" alt="...">
-          <div class="caption">
-            <h3>Thumbnail label</h3>
-            <p>...</p>
-            <p>
-                <a href="#" class="btn btn-primary" role="button">阅读全文</a>
-            </p>
-          </div>
-        </div>
-        </div>
-    <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-          <img src="/static/img/bz1.jpg" alt="...">
-          <div class="caption">
-            <h3>Thumbnail label</h3>
-            <p>...</p>
-            <p>
-                <a href="#" class="btn btn-primary" role="button">阅读全文</a>
-            </p>
-          </div>
-        </div>
-      </div>
+        <div class="col-lg-8">
+            {% for p in post %}
+   <div class="list-group" style="height: 100px">
+   <div class="list-group-item">
+       <span class="badge">新</span>
+    <a href="/article/{{ p.username}}/{{ p.id }}/" >
+        <h4 class="list-group-item-heading">{{ p.title }}</h4>
+        </a>
+        <p class="list-group-item-text">{{ p.body }}...</p>
+        <br>
+        <p>{{ p.created_at }}&nbsp|&nbsp阅读:{{ p.id }}&nbsp|&nbsp评论数:{{ p.id }}</p>
+   </div>
     </div>
-    <div class="row">
-      <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-          <img src="/static/img/bz1.jpg" alt="...">
-          <div class="caption">
-            <h3>Thumbnail label</h3>
-            <p>...</p>
-            <p>
-                <a href="#" class="btn btn-primary" role="button">阅读全文</a>
-            </p>
-          </div>
+{% endfor %}
         </div>
-      </div>
+        <div class="col-lg-4">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">博客公告</h3>
+                </div>
+            <div class="panel-body">先锋的博客2019年5月31号正式上线，感谢支持，希望能和大家一起分享交流技术！
+                 <div>
+                     <img class="img-rounded" src="https://img-blog.csdn.net/20180401145756122" style="width: 280px;height: 280px" alt="">
+                 </div>
+            </div>
+            </div>
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">关注我的动向</h3>
+                </div>
+                <div class="panel-body">
+                    <a href="https://www.zhihu.com/people/liu-wei-fu-98/activities">
+                        <label><img src="{% static 'img/zhihu.svg' %}" alt="" style="width: 60px;height: 60px"></label>
+                    </a>
+                    <a href="https://weibo.com/u/6562325564/home?wvr=5&sudaref=graph.qq.com&reason=&retcode=">
+                        <label><img src="{% static 'img/weibo.svg' %}" alt="" style="width: 60px;height: 60px"></label>
+                    </a>
+                    <a href=".">
+                        <label><img src="{% static 'img/email.svg' %}" alt="" style="width: 60px;height: 60px"></label>
+                    </a>
+                    <a href="https://github.com/4465">
+                        <label><img src="{% static 'img/GitHub.svg' %}" alt="" style="width: 60px;height: 60px"></label>
+                    </a>
+                    <a href="https://blog.csdn.net/weifuliu">
+                        <label><img src="{% static 'img/csdn.svg' %}" alt="" style="width: 60px;height: 60px"></label>
+                    </a>
+                </div>
+            <div class="panel-body">
+
+            </div>
+            </div>
+        </div>
     </div>
+
+
 </div>
 {% endblock %}

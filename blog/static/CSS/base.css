@@ -1,0 +1,22 @@
+.content {
+    /*margin-left: 70px;*/
+    margin-left: 120px;
+    margin-right: 120px;
+    margin-bottom: 50px;
+    padding-bottom: 40px;/*高度等于footer的高度*/
+    font-size: 15px; /*正文字体大小*/
+}
+
+#container {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+}
+
+#footer {
+    margin-bottom: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100px;/*脚部的高度*/ background: black;
+    clear:both;
+}

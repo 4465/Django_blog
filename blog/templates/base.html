@@ -9,49 +9,14 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>{% block title %}base{% endblock %}</title>
     <!-- Bootstrap -->
+      <link rel="stylesheet" href="{% static 'CSS/base.css' %}">
     <link href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+      <link rel="stylesheet" href="../static/CSS/code.css">
+      <script src="{% static 'JS/layer.js' %}"></script>
     {% block css %}{% endblock %}
   </head>
   <body>
-{#    <nav class="navbar navbar-default">#}
-{#      <div class="container-fluid">#}
-{#        <!-- Brand and toggle get grouped for better mobile display -->#}
-{#        <div class="navbar-header">#}
-{#          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#my-nav" aria-expanded="false">#}
-{#            <span class="sr-only">切换导航条</span>#}
-{#            <span class="icon-bar"></span>#}
-{#            <span class="icon-bar"></span>#}
-{#            <span class="icon-bar"></span>#}
-{#          </button>#}
-{#          <a class="navbar-brand" href="/index/">先锋Blog</a>#}
-{#        </div>#}
-{#        <!-- Collect the nav links, forms, and other content for toggling -->#}
-{#        <div class="collapse navbar-collapse" id="my-nav">#}
-{#          <ul class="nav navbar-nav">#}
-{#            <li class="active"><a href="/index/">主页</a></li>#}
-{#          </ul>#}
-{#          <ul class="nav navbar-nav navbar-right">#}
-{#              {% if request.session.username %}#}
-{#                  <li><a href="/logout/">我的博客</a></li>#}
-{#                  <li><a href="/edit/">写博客</a></li>#}
-{#                  <li class="active"><a href="">用户：{{ request.session.username }}</a></li>#}
-{#                  <li><a href="/logout/">退出</a></li>#}
-{##}
-{#              {% else %}#}
-{#                  <li class="active"><a href="/login/">登录</a></li>#}
-{#                  <li class="active"><a href="/register/">注册</a></li>#}
-{#              {% endif %}#}
-{#          </ul>#}
-{#        </div><!-- /.navbar-collapse -->#}
-{#      </div><!-- /.container-fluid -->#}
-{#    </nav>#}
+    {% block javascript %}{% endblock %}
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -76,8 +41,8 @@
             <li><a href="#">加密解密</a></li>
             <li><a href="#">代码规范</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">vip视频解析</a></li>
-              <li><a href="#">Music</a></li>
+            <li><a href="http://mv.688ing.com/">vip视频解析</a></li>
+              <li><a href="https://music.laod.cn/">Music</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#">工具软件</a></li>
           </ul>
@@ -91,7 +56,7 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
           {% if request.session.username %}
-          <li><a href="#">写博客</a></li>
+          <li><a href="/article/edit/">写博客</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ request.session.username }}<span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -103,7 +68,7 @@
             </ul>
           </li>
               {% else %}
-              <li><a href="#">写博客</a></li>
+              <li><a href="">写博客</a></li>
               <li><a href="/login/">登录</a></li>
               <li><a href="/register/">注册</a></li>
           {% endif %}
@@ -111,12 +76,29 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-    <div class="container">
+    <div class="container content" id="container">
         {% block content %}{% endblock %}
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="{% static 'JS/jquery-3.3.1/jquery-3.3.1.js' %}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+  <nav class="navbar navbar-dark bg-dark mb-0" id="footer">
+
+    <div class="row col-12 justify-content-center">
+        <div style="text-align: center; color: lightgrey;">
+            <p class="mb-0">CopyRight &copy; 2019 先锋的个人博客</p>
+            <p class="mb-0">Powered by
+                <a href="https://www.djangoproject.com/" target="_blank">
+                    Django
+                </a> &
+                <a target="_blank" href="https://getbootstrap.com/">
+                    Bootstrap
+                </a>
+                <span class="mb-0">&nbsp;暂未备案</span>
+            </p>
+        </div>
+    </div>
+</nav>
   </body>
 </html>

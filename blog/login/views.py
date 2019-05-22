@@ -1,14 +1,14 @@
 # login/views.py
 from django.shortcuts import render, redirect
-from login.models import User
+from login.models import User,Category,Post
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 
 def index(request):
-    users = User.objects.all()
-    return render(request, 'login/index.html',{'users': users})
-
-
+    post = Post.objects.all().order_by('-created_at')
+    for i in post:
+        i.body = i.body[0:20]
+    return render(request, 'login/index.html',{'post': post})
 
 def login(request):
     if request.method == "POST":
@@ -50,4 +50,4 @@ def logout(request):
 
 
 def userPage(request,username):
-    return render(request,'login/user.html',{'user':username})
+    return render(request, 'login/user.html', {'user': username})
