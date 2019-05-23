@@ -3,52 +3,94 @@ from login.models import User,Category,Post
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from markdown import  markdown
+from datetime import datetime
+
 
 @csrf_exempt
 def article_create(request):
     if request.method == 'POST':
         category = request.POST['category']
-        print(category)
-        #print(category_list.name)
+        title = request.POST['title']
+        body = request.POST['body']
+        username = request.session['username']
         try:
-            print("目录已存在")
-            category_list = Category.objects.get(name=category)
-            title = request.POST['title']
-            body = request.POST['body']
-            user = request.session['username']
-            user_id = User.objects.get(name=user).id
-            print(user_id)
-            cate_id = Category.objects.get(name=category).id
-            print(cate_id)
-            sql = Post.objects.create(title=title, body=body, category_id=cate_id, created_by_id=user_id,username=user)
+            list = Category.objects.get(name=category)
+            user = User.objects.get(name=username)
+            user_id = user.id
+            cate =  Category.objects.get(name=category)
+            cate_id = cate.id
+            sql = Post.objects.create(title=title, body=body,category_id=cate_id,author_id=user_id, author=user,category=cate, updated_at=datetime.now())
             sql.save()
         except:
-            print("新建目录")
             sql = Category.objects.create(name=category)
             sql.save()
-            title = request.POST['title']
-            body = request.POST['body']
-            user = request.session['username']
+            user = User.objects.get(name=username)
             user_id = User.objects.get(name=user).id
-            cate_id = Category.objects.get(name=category).id
-            sql = Post.objects.create(title=title,body=body,category_id=cate_id,created_by_id=user_id,username=user)
+            cate = Category.objects.get(name=category)
+            cate_id = cate.id
+            sql = Post.objects.create(title=title,body=body,category_id=cate_id,author_id=user_id, author=user, category=cate,updated_at=datetime.now())
             sql.save()
         return redirect('/index/')
     else:
         return render(request,'article/article_edit.html')
 
 
+def article_del(request,id):
+    #根据id获取需要删除的文章
+    print("删除的文章id为：",id)
+    article = Post.objects.get(id=id)
+    #调用.delete()方法删除文章
+    article.delete()
+    #完成删除后返回首页
+    return redirect('/index/')
+
+
+def getUpdateArticle(request,id):
+    print("编辑的文章id为",id)
+    article = Post.objects.get(id=id)
+    context = {'article':article}
+    return render(request,'article/article_update.html',context)
+
+
+def article_update(request, id):
+    if request.method == 'POST':
+        print("POST")
+        title = request.POST['title']
+        category = request.POST['category']
+        body = request.POST['body']
+        print(category)
+        try:
+            print(category)
+            print("更新数据库")
+            #查询修改后的目录
+            cat = Category.objects.get(name=category)
+            #查询修改后的文章
+            article = Post.objects.get(id=id)
+            article.category = cat
+            article.title = title
+            article.body = body
+            article.updated_at = datetime.now()
+            print(body)
+            article.save(update_fields=['updated_at'])
+        except:
+            print("新建目录")
+            sql = Category.objects.create(name=category)
+            sql.save()
+            cate_id = Category.objects.get(name=category).id
+            sql.save()
+        return redirect('/article/'+request.session['username']+'/'+id +'/')
+    else:
+        print("错误")
+        return render(request,'article/article_edit.html')
+
+
 def postPage(request, username, postID):
-    post = {}
-    print(username)
-    print(postID)
     p = Post.objects.get(id=int(postID))
-    c = Category.objects.get(id=int(p.category_id))
-    u = User.objects.get(name=username)
-    print(p.category_id)
-    post['title'] = p.title
-    post['body'] = markdown(p.body)
-    post['created_at'] = p.created_at
-    post['category'] = c.name
-    post['username'] = u.name
-    return render(request, 'article/postPage.html', {'user': username, 'postID': postID, 'post': post})
+    p.total_view += 1
+    p.save(update_fields=['total_view'])
+    p.body = markdown(p.body,extensions=[
+                                     'markdown.extensions.extra',
+                                     'markdown.extensions.codehilite',
+                                     'markdown.extensions.toc',
+                                  ])
+    return render(request, 'article/postPage.html', {'user': username, 'postID': postID, 'post': p})

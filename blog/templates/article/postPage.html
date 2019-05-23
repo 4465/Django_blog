@@ -2,31 +2,51 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block title %}{{ post.title }}{% endblock %}
-{% block css %}<link rel="stylesheet" href="{% static 'CSS/postPage.css' %}">{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'CSS/postPage.css' %}">
+{#    <style>#}
+{#        img{#}
+{#            width: 700px;#}
+{#            height: 600px;#}
+{#        }#}
+{#    </style>#}
+{% endblock %}
+
 {% block content %}
    <div style="padding: 50px 100px 10px;">
-    <div class="content">
-        <div class="page-header">
-        <h1>
-            <a href=".">
-                {{ post.title }}
-            </a>
-            {% if request.session.username %}
-             <button class="btn btn-primary pull-right">编辑</button>
-            {% endif %}
+    <div class="row">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="page-header">
+            <h1>
+                <a href=".">
+                    {{ post.title }}
+                </a>
+                {% if request.session.username %}
+                     <a href="{% url "articleDelete" postID %}">
+                        <small class="btn btn-danger pull-right">
+                           删除
+                        </small>
+                    </a>
+                    <a href="{% url "articleUpdate" postID %}">
+                        <small class="btn btn-primary pull-right" style="margin-right: 5px">编辑</small>
+                    </a>
+                {% endif %}
+                 </h1>
+                 <br>
+                <small>
+                    {{ post.created_at }}&nbsp by &nbsp{{ post.author.name }}
+                    &nbsp | &nbsp updated:{{ post.updated_at }}
+                </small>
+            </div>
+            <span class="label label-primary">{{ post.category.name }}</span>
+            <div class="article-contain">
+                 {{ post.body|safe }}
+            </div>
+        </form>
 
-        </h1>
-             <br>
-            <small>
-                {{ post.created_at }}&nbsp;by &nbsp;{{ post.username }}
-            </small>
-        </div>
-        <span class="label label-primary">{{ post.category }}</span>
-        <div class="article-contain">
-             {{ post.body|safe }}
-        </div>
+
     </div>
-
    </div>
+
 
 {% endblock %}

@@ -3,12 +3,15 @@ from django.shortcuts import render, redirect
 from login.models import User,Category,Post
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+from django.core.paginator import Paginator
+
 
 def index(request):
     post = Post.objects.all().order_by('-created_at')
     for i in post:
         i.body = i.body[0:20]
     return render(request, 'login/index.html',{'post': post})
+
 
 def login(request):
     if request.method == "POST":

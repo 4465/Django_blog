@@ -11,35 +11,38 @@ class User(models.Model):
         ('male','男'),
         ('female', '女'),
     )
-    name = models.CharField(max_length=128, unique=True)
-    password = models.CharField(max_length=256)
+    name = models.CharField(max_length=128)
+    password = models.CharField(max_length=128)
     email = models.EmailField(unique=True)
-    sex = models.CharField(max_length=32, choices=gender, default='男')
+    sex = models.CharField(max_length=128, choices=gender, default='男')
     c_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
 
-    class Meta:
-        ordering = ['c_time']
-        verbose_name = '用户'
-        verbose_name_plural = '用户'
 
 class Category(models.Model):
-    name = models.TextField()
+    name = models.CharField(max_length=128)
 
     def __unicode__(self):
         return self.name
 
 
 class Post(models.Model):
+    #目录
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
-    title = models.TextField()
+    #文章题目
+    title = models.CharField(max_length=128)
+    #文章主体
     body = models.TextField()
+    #创建时间
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateField(null=True)
-    created_by = models.ForeignKey(User,related_name='post',on_delete=models.CASCADE)
-    username = models.CharField(max_length=128,null=True)
+    #更新时间
+    updated_at = models.DateTimeField(null=True)
+    #作者
+    author = models.ForeignKey(User,related_name='post',on_delete=models.CASCADE)
+    total_view = models.PositiveIntegerField(default=0)
+    total_comment = models.PositiveIntegerField(default=0)
 
     def __unicode__(self):
         return self.title

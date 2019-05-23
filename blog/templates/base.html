@@ -11,8 +11,7 @@
     <!-- Bootstrap -->
       <link rel="stylesheet" href="{% static 'CSS/base.css' %}">
     <link href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}" rel="stylesheet">
-      <link rel="stylesheet" href="../static/CSS/code.css">
-      <script src="{% static 'JS/layer.js' %}"></script>
+      <link rel="stylesheet" href="{% static 'CSS/code.css  ' %}">
     {% block css %}{% endblock %}
   </head>
   <body>
@@ -79,26 +78,11 @@
     <div class="container content" id="container">
         {% block content %}{% endblock %}
     </div>
+    {% include 'footer.html' %}
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="{% static 'JS/jquery-3.3.1/jquery-3.3.1.js' %}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
-  <nav class="navbar navbar-dark bg-dark mb-0" id="footer">
 
-    <div class="row col-12 justify-content-center">
-        <div style="text-align: center; color: lightgrey;">
-            <p class="mb-0">CopyRight &copy; 2019 先锋的个人博客</p>
-            <p class="mb-0">Powered by
-                <a href="https://www.djangoproject.com/" target="_blank">
-                    Django
-                </a> &
-                <a target="_blank" href="https://getbootstrap.com/">
-                    Bootstrap
-                </a>
-                <span class="mb-0">&nbsp;暂未备案</span>
-            </p>
-        </div>
-    </div>
-</nav>
-  </body>
+ </body>
 </html>

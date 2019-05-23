@@ -1,6 +1,8 @@
 {% extends 'base.html' %}{% load staticfiles %}
 {% block title %}写文章{% endblock %}
-{% block css %} <link href="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+{% endblock %}
 
 {% block content %}
     <form action="/article/edit/" method="post">
@@ -17,9 +19,13 @@
                     <input type="text" class="form-control" id="category" name="category">
                 </div>
     <textarea id="body" name="body"></textarea>
-    <script src="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     <script>
         var simplemde = new SimpleMDE();
+        simplemde.isPreviewActive(); // returns boolean
+        simplemde.isSideBySideActive(); // returns boolean
+        simplemde.isFullscreenActive(); // returns boolean
+        simplemde.clearAutosavedValue(); // no returned value
     </script>
        <button type="submit" class="btn btn-primary">发布</button>
     </form>
