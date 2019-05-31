@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from login.models import User,Category,Post
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
 from markdown import  markdown
 from datetime import datetime
 
@@ -94,3 +93,8 @@ def postPage(request, username, postID):
                                      'markdown.extensions.toc',
                                   ])
     return render(request, 'article/postPage.html', {'user': username, 'postID': postID, 'post': p})
+
+
+def myBlog(request,username):
+    post = Post.objects.all()
+    return render(request,'article/myBlog.html', {'post': post})

@@ -1,0 +1,53 @@
+
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'CSS/base.css' %}">
+{% endblock %}
+
+{% block content %}
+     <div style="padding: 50px 50px 10px;">
+    <div class="row">
+    <div class="col-md-8">
+        <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr class="table-bg">
+                <td>#</td>
+                <td>Title</td>
+                <td>操作</td>
+            </tr>
+            {% with i=1 %}
+            {% for p in post %}
+                 <tr>
+                <td>{{ i|add:'1' }}</td>
+                <td><a href="/article/{{ p.author.name}}/{{ p.id }}/">{{ p.title }}</a></td>
+                <td>
+                    <div class="btn btn-success">
+                        <a href="{% url "articleUpdate" p.id %}">
+                            修改
+                        </a>
+                    </div>
+                    <div class="btn btn-danger">
+                        <a href="{% url "articleDelete" p.id %}">
+                            删除
+                        </a>
+                    </div>
+                    <div class="btn btn-primary">
+                        <a href="/article/{{ p.author.name}}/{{ p.id }}/">
+                            查看
+                        </a>
+                    </div>
+                </td>
+            </tr>
+
+            {% endfor %}
+        {% endwith %}
+        </table>
+    </div>
+    </div>
+    <div class="col-md-4">
+
+    </div>
+    </div>
+     </div>
+{% endblock %}

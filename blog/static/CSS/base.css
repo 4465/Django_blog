@@ -1,5 +1,12 @@
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
 
+.table-bg{
+    background-color: #0f0f0f;
+}
 
-.bg-dark{
-    background: #0f0f0f;
+a{
+    text-decoration: none;
 }

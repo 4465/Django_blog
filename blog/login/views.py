@@ -54,3 +54,7 @@ def logout(request):
 
 def userPage(request,username):
     return render(request, 'login/user.html', {'user': username})
+
+
+def about(request):
+    return render(request,'other/about.html')

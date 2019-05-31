@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from login import views
 from article import  main as article_main
 
@@ -24,11 +25,12 @@ urlpatterns = [
     url(r'^login/', views.login),
     url(r'^register/', views.register),
     url(r'^logout/', views.logout),
-    # url(r'^about/',views.about),
+    url(r'^about/',views.about),
     url(r'^u/(?P<username>.*)/$',views.userPage,name='userPage'),
     url(r'^article/(?P<username>.*)/(?P<postID>\d+)/$',article_main.postPage,name='postPage'),
     url(r'^article/edit/',article_main.article_create, name='articleCreat'),
     url(r'^article-delete/(?P<id>.*)/$', article_main.article_del, name='articleDelete'),
     url(r'^article-update/(?P<id>.*)/', article_main.getUpdateArticle, name='articleUpdate'),
-    url(r'^updated/(?P<id>.*)/$',article_main.article_update, name='updateArticle')
+    url(r'^updated/(?P<id>.*)/$',article_main.article_update, name='updateArticle'),
+    url(r'^(?P<username>.*)/myBlog/',article_main.myBlog,name='myBlog'),
 ]
